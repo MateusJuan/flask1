@@ -25,7 +25,7 @@ primary_key=True)
 
 @app.route('/', methods=["GET", "POST"])
 def home():
-    books = None
+    books = ''
     if request.form:
         try:
             book = Book(title=request.form.get("title"))
@@ -34,8 +34,8 @@ def home():
         except Exception as e:
             print("Failed to add book")
             print(e)
-            books = Book.query.all()
-            return render_template("index.html", books=books)
+    books = Book.query.all()
+    return render_template("index.html", books=books)
         
 @app.route("/update", methods=["POST"])
 def update():
@@ -48,7 +48,7 @@ def update():
     except Exception as e:
         print("Couldn't update book title")
         print(e)
-        return redirect("/")
+    return redirect("/")
     
 @app.route("/delete", methods=["POST"])
 def delete():
